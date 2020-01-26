@@ -6,7 +6,7 @@ const app = express();
 
 // conectar a base de dados MongoDB
 mongoose.connect('mongodb+srv://tenark:tenark@cluster0-bwfwx.mongodb.net/omnistack10?retryWrites=true&w=majority', {
-    useUnifiedTopology: true,   
+    useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true
 });

@@ -1,26 +1,17 @@
-const {Router} = require('express');
-const axios = require('axios');
+const { Router } = require('express');
+const DevController = require('./controllers/DevController');
+const SearchController = require('./controllers/SearchController')
 
 
 const routes = Router();
 
-// Rota para cadastrar um "Dev"
-routes.post('/devs', async(request, response) => {
-    // recupera o Username no body da requisicao
-    const {github_username} = request.body
+// ROTA PARA EXIBIR OS "DEVS"
+routes.get('/devs', DevController.index);
 
-    // busca o username na api do github
-    const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
+// ROTA PARA PESQUISAR OS "DEVS"
+routes.get('/search', SearchController.index);
 
-    let {name, bio, avatar_url} = apiResponse.data;
-
-    // Caso o dev nao tenha cadastrado um nome, sera apresentado o username no lugar
-    if(!name){
-        name = github_username;
-    };
-
-    console.log(name, bio, avatar_url);
-    return response.json({mensage: "hello Omnsitack"});
-});
+// ROTA PARA CADASTRAR UM "DEV"
+routes.post('/devs', DevController.store);
 
 module.exports = routes;
